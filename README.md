@@ -16,7 +16,7 @@ ThingSpeak에 기록되는 가변저항 값이 기준을 넘었을 때 휴대폰
 | ThingSpeak 채널 `3565693` | 가변저항 값을 `Field 1`에 기록 |
 | ThingSpeak React | `Field 1 > 800` 조건을 검사 |
 | ThingSpeak ThingHTTP | 조건이 맞으면 IFTTT Webhook 호출 |
-| IFTTT Webhooks | 이벤트 `TooCold`를 받음 |
+| IFTTT Webhooks | 이벤트 `PotOver800`를 받음 |
 | IFTTT 앱 | 휴대폰에 알림 표시 |
 
 ## 동작 흐름
@@ -27,7 +27,7 @@ flowchart LR
     B --> C{값이 800 초과?}
     C -->|예| D[React 실행]
     D --> E[ThingHTTP 호출]
-    E --> F[IFTTT Webhook: TooCold]
+    E --> F[IFTTT Webhook: PotOver800]
     F --> G[휴대폰 IFTTT 알림]
     C -->|아니오| B
 ```
@@ -37,7 +37,7 @@ flowchart LR
 ### 1. IFTTT Applet
 
 - **If This:** Webhooks → Receive a web request
-- **Event Name:** `TooCold`
+- **Event Name:** `PotOver800`
 - **Then That:** Notifications → Send a notification from the IFTTT app
 - **알림 문구:** `가변저항 값이 800을 넘었습니다.`
 
@@ -50,7 +50,7 @@ ThingSpeak의 **Apps → ThingHTTP → New ThingHTTP**에서 다음 요청을 �
 | 항목 | 설정값 |
 |---|---|
 | Name | `IFTTT Pot Alert` |
-| URL | `https://maker.ifttt.com/trigger/TooCold/with/key/본인의_WEBHOOK_KEY` |
+| URL | `https://maker.ifttt.com/trigger/PotOver800/with/key/본인의_WEBHOOK_KEY` |
 | Method | `GET` |
 
 `본인의_WEBHOOK_KEY`는 IFTTT Webhooks의 Documentation에서 확인한 키로 직접 바꿉니다. 키가 들어간 실제 URL은 공개하지 않습니다.
@@ -80,6 +80,11 @@ https://api.thingspeak.com/update?api_key=WRITE_API_KEY&field1=801
 
 응답으로 `0`보다 큰 기록 번호가 나오면 값이 저장된 것입니다. 기록 간격 제한 때문에 무료 계정에서는 요청 사이에 15초 이상 기다립니다. 그 뒤 채널 그래프와 휴대폰 알림을 확인합니다.
 
+## 실행 확인
+
+- 11월 25일 오후 11시 32분, IFTTT 앱의 Activity에 **Applet ran** 기록이 표시되었습니다.
+- 실행 상세에는 Webhooks 이벤트 `PotOver800`이 발생했다고 표시됩니다.
+- 이 기록으로 Webhooks 이벤트가 IFTTT Applet까지 전달된 것을 확인했습니다. 휴대폰 알림 배너가 보이지 않았다면 IFTTT 앱의 알림 권한과 휴대폰 알림 기록도 확인합니다.
 ## 주요 설정을 이렇게 한 이유
 
 - **Numeric 조건:** `Field 1`을 숫자로 비교해 기준값보다 큰지 판단합니다.
