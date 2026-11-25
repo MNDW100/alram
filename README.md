@@ -85,6 +85,12 @@ https://api.thingspeak.com/update?api_key=WRITE_API_KEY&field1=801
 - 11월 25일 오후 11시 32분, IFTTT 앱의 Activity에 **Applet ran** 기록이 표시되었습니다.
 - 실행 상세에는 Webhooks 이벤트 `PotOver800`이 발생했다고 표시됩니다.
 - 이 기록으로 Webhooks 이벤트가 IFTTT Applet까지 전달된 것을 확인했습니다. 휴대폰 알림 배너가 보이지 않았다면 IFTTT 앱의 알림 권한과 휴대폰 알림 기록도 확인합니다.
+
+![IFTTT Activity에서 Webhooks 실행을 확인한 화면](images/ifttt-activity-success.png)
+
+*11월 25일 오후 11시 32분 실행 기록. 상세에 수신 이벤트 PotOver800이 표시됩니다.*
+
+> 실행 카드 제목에는 TooCold가 보이지만 상세의 이벤트명은 PotOver800입니다. ThingHTTP URL에 사용할 이벤트명은 IFTTT Webhooks에서 실제로 설정한 이름과 일치시킵니다.
 ## 주요 설정을 이렇게 한 이유
 
 - **Numeric 조건:** `Field 1`을 숫자로 비교해 기준값보다 큰지 판단합니다.
